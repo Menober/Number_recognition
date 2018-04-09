@@ -2,7 +2,7 @@
 
 
 We take a picture (e.g. 10x10) composed of black and white pixels.</br>
-We project it into a two-dimensional matrix composed of ones and zeros.</br>
+We transform it into a two-dimensional matrix composed of ones and zeros.</br>
 INPUT:</br>
 <img src="https://raw.githubusercontent.com/Menober/Number_recognition/master/res/image.bmp" width=50 height=50></a></br>
 PROCESSED INPUT: </br>
