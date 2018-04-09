@@ -10,34 +10,38 @@ import java.util.Comparator;
 
 public class Main {
     public static void main(String[]args) throws IOException {
-
-        ArrayList<double [][]> det=new ArrayList<double [][]>();
-        int countOfNumbers=10; //-1 ilosc folderow z danymi
-
-        double [][] image=loadImageToMatrix("res\\image.bmp");
-        image=deleteUselessColumnsAndRows(image);
-
-        for(int i=0;i<countOfNumbers;i++)
-        det.add(designModelMatrix(10,10,10,"res\\treningData\\"+i+"\\"));
-
-
-        ArrayList<Diffrence> differences=new ArrayList<>();
-
-        for(int i=0;i<countOfNumbers;i++)
-            differences.add(new Diffrence(String.valueOf(i),compareMatrices(image,det.get(i))));
-        sort(differences);
-
-        //The fewer the better
-        System.out.println("The best match:");
-        showArray(differences);
+            start();
 
 
 
-         saveMatrixAsImage(image,"res\\out\\!");
-        for(int i=0;i<countOfNumbers;i++)
-            saveMatrixAsImage(det.get(i),"res\\out\\"+i+"");
+    }
 
+
+        public static void start() throws IOException {
+            ArrayList<double [][]> det=new ArrayList<double [][]>();
+            int countOfNumbers=10; //-1 ilosc folderow z danymi
+
+            double [][] image=loadImageToMatrix("res\\image.bmp");
+            image=deleteUselessColumnsAndRows(image);
+
+            for(int i=0;i<countOfNumbers;i++)
+                det.add(designModelMatrix(10,10,10,"res\\treningData\\"+i+"\\"));
+
+            ArrayList<Diffrence> differences=new ArrayList<>();
+
+            for(int i=0;i<countOfNumbers;i++)
+                differences.add(new Diffrence(String.valueOf(i),compareMatrices(image,det.get(i))));
+            sort(differences);
+
+            //The fewer the better
+            System.out.println("The best match:");
+            showArray(differences);
+
+            saveMatrixAsImage(image,"res\\out\\!");
+            for(int i=0;i<countOfNumbers;i++)
+                saveMatrixAsImage(det.get(i),"res\\out\\"+i+"");
         }
+
 
         public static void showArray(ArrayList<Diffrence> diffrences){
         for(Diffrence d:diffrences)
@@ -124,6 +128,24 @@ public class Main {
                     matrix[y][x]/=imagesCount;
         return matrix;
         }
+
+        public static double[] calculateVerticalProjection(double [][]matrix){
+            double[] projection=new double[matrix[0].length];
+            for(int x=0;x<matrix[0].length;x++){
+                for(int y=0;y<matrix.length;y++)
+                    projection[x]+=matrix[y][x];
+
+            }
+
+            return projection;
+        }
+
+        public static double[] calculateHorizontalProjection(double [][]matrix){
+            double[] projection=new double[matrix.length];
+
+            return projection;
+        }
+
         public static void viewMatrix(double [][] matrix){
         for(int x=0;x<matrix[0].length;x++){
             for(int y=0;y<matrix.length;y++)
@@ -153,4 +175,7 @@ public class Main {
                     image.setRGB(x,y,(int)(200*matrix[y][x]));
             ImageIO.write(image,"bmp",input);
         }
+
+
+
 }
